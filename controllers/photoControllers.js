@@ -16,7 +16,7 @@ import Photo from '../models/Photo.js';
 
 const getAllPhotos = async (req, res) => {
   const page =req.query.page || 1;
-  const photosPerPage =2;
+  const photosPerPage =3;
 
   const totalPhotos = await Photo.find().countDocuments();
 
