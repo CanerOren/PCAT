@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import fileUpload from 'express-fileupload';
 import sharp from 'sharp';
 import methodOverride from 'method-override';
+import dotenv from 'dotenv';
 
 import path from 'path'
 // const path = require('path');
@@ -16,11 +17,13 @@ import Photo from './models/Photo.js';
 import {getAllPhotos,getPhoto,createPhoto,updatePhoto,deletePhoto} from './controllers/photoControllers.js'
 import { getAboutPage,getAddPage,getEditPage } from './controllers/pageController.js';
 
+dotenv.config();
+
 const app = express();
 
 
 // connect DB
-mongoose.connect('mongodb://localhost/pcat-test-db')
+mongoose.connect(process.env.MONGODB_URI)
   .then(()=>{console.log('Succesfully connected MongoDB')})
   .catch((err)=>{console.log(`Connection error ${err}`)});
 
@@ -49,7 +52,7 @@ app.get('/add', getAddPage);
 
 app.get('/photos/edit/:id', getEditPage);
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Sunucu ${port} portunda baslatildi.`);
 });
